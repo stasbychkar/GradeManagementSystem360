@@ -1,7 +1,7 @@
 # Grade Management System 
 
 ## Brief Description 
-<em>Coming soon...</em>
+This tool allow users to input student grade data and automatically generates visual charts, making it easier to analyze and interpret grade trends.
 
 ## Instructions for running the program
 <em>Coming soon...</em>
