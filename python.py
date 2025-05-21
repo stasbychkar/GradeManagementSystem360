@@ -7,6 +7,7 @@ import matplotlib
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 import argparse
+from pathlib import Path
 
 matplotlib.rcParams.update({'font.size': 18})
 #Generates a histogram based on the criteria given
@@ -35,11 +36,12 @@ def GenerateHist(criteria):
     plt.show()
 
 
-directoryName = "C:\\Users\\AlanV\\OneDrive\\Desktop\\CSS Work\\CSS 360"
-os.chdir(directoryName)
-workingDir = os.getcwd()
-fileName = "Grades.csv"
-gradeDF = pd.read_csv(fileName)
+
+script_dir = Path(__file__).resolve().parent
+
+csv_path = script_dir / "Grades.csv"
+
+gradeDF = pd.read_csv(csv_path)
 gradeDF = gradeDF[pd.notna(gradeDF['StuID'])]
 
 parser = argparse.ArgumentParser()
