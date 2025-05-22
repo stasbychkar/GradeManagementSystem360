@@ -1,3 +1,120 @@
-public class Link {
+import com.opencsv.*;
+import java.io.*;
+import java.lang.*;
+import java.util.*;
 
+public class Link {
+    private String file_name = "/test.csv";
+    private List<Student> students = new ArrayList();
+
+    // TODO: use ProcessBuilder to call python code
+    public void generateChart() {
+        // use processbuilder to call python code to generate charts
+    }
+
+    public List<Student> getStudents() { return students; }
+
+    // save the updated CSV file
+    public void updateFile() {
+        File file = new File(file_name);
+        try {
+            FileWriter outputfile = new FileWriter(file);
+            CSVWriter writer = new CSVWriter(outputfile);
+            String[] header = { "ID", "Name", "GPA" };
+            writer.writeNext(header);
+            for (Student student : students) {
+                String[] temp = {String.valueOf(student.getId()), student.getName(), student.getGPA()};
+                writer.writeNext(temp);
+
+            }
+//            String[] temp = {"4", "Lyra", "3.9"};
+//            writer.writeNext(temp);
+            writer.close();
+        }
+        catch (Exception e) {
+            System.out.println("Something went wrong in updateFile()");
+            e.printStackTrace();
+        }
+    }
+
+    public void readFile(String fileName) {
+        List<String[]> temp;
+        try {
+            FileReader freader = new FileReader(fileName);
+            CSVReader reader = new CSVReaderBuilder(freader).withSkipLines(1).build();;
+            temp = reader.readAll();
+            if (temp.isEmpty()) {
+                System.out.println("file is empty.");
+                throw new Exception();
+            }
+            reader.close();
+            for(String[] temp_s : temp)
+            {
+                Student s = new Student(Integer.parseInt(temp_s[0]), temp_s[1], temp_s[2]);
+                students.add(s);
+            }
+            file_name = fileName;
+        }
+        catch (Exception e) {
+            System.out.println("error in readFile()");
+            e.printStackTrace();
+        }
+
+    }
+    //
+
+    public void addStudent(int id, String name, String GPA) {
+        Student temp = new Student(id, name, GPA);
+        if(!students.contains(temp)) {
+            students.add(temp);
+        }
+        else {
+            // replace with a JOptionPane or something
+            System.out.println("Student already exists.");
+        }
+        updateFile();
+    }
+
+    public void deleteStudent(String id) {
+        boolean found = false;
+        for(int i = 0; i < students.size(); i++) {
+            if(students.get(i).getId() == Integer.parseInt(id)) {
+                students.remove(i);
+                System.out.println("Student with ID: " + id + " deleted.");
+                found = true;
+                break;
+            }
+        }
+        if(!found) {
+            System.out.println("Student with ID: " + id + " not found and thus not deleted.");
+        } else {
+            updateFile();
+        }
+    }
+
+    // troubleshooting method
+    public void printStudents() {
+        for(Student student : students) { System.out.println(student); }
+    }
 }
+
+class Student { String name; String GPA; int id;
+
+    public Student() { this(0,"",""); }
+
+    public Student(int id, String name, String GPA) {
+        this.id = id;
+        this.name = name;
+        this.GPA = GPA;
+    }
+
+    public String getName() { return name; }
+
+    public int getId() { return id; }
+
+    public String getGPA() { return GPA; }
+
+    @Override
+    public String toString() { return id + ", " + name + ", " + GPA; }
+}
+

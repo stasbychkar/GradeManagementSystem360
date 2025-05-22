@@ -1,3 +1,5 @@
-﻿STUDENT_ID,FIRST_NAME,LAST_NAME,CUM_GPA,NOTES,CLASS_1,CR,GRADE,CLASS_2,CR,GRADE,CLASS_3,CR,GRADE
-1,Bill,Person,3.5,N/A,CSS 301,5,3.6,CSS 360,5,3.4,CSS 342,5,3.5
-2,Bob,Joe,4,N/A,CSS 301,5,4,CSS 360,5,4,CSS 342,5,4
+"ID","Name","GPA"
+"1","Bilbo Baggins","3.5"
+"2","Cassian Andor","3.5"
+"3","Kleya Marki","3.5"
+"4","Luthen Rael","3.9"
