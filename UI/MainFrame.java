@@ -1,14 +1,15 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import javax.swing.table.TableCellRenderer;
-
 
 public class MainFrame extends JFrame {
 
     private JTable studentTable;
     private DefaultTableModel tableModel;
+
+    public static final String EDIT = "Edit";
+    public static final String DELETE = "Delete";
 
     public MainFrame() {
         // set the MainFrame
@@ -38,8 +39,20 @@ public class MainFrame extends JFrame {
         topPanel.add(viewStatsButton);
         add(topPanel, BorderLayout.NORTH);
 
+        // New - added for class assignemnt
+        // Add Edit/Delete columns if not present in CSV
+        if (tableModel.getColumnCount() < 5) {
+            tableModel.addColumn("Edit");
+            tableModel.addColumn("Delete");
+
+            for (int i = 0; i < tableModel.getRowCount(); i++) {
+                tableModel.setValueAt("Edit", i, 3);
+                tableModel.setValueAt("Delete", i, 4);
+            }
+        }
+
         // Table setup
-        String[] columnNames = {"ID", "Name", "GPA", "Edit", "Delete"};
+        String[] columnNames = {"ID", "Name", "GPA", EDIT, DELETE};
         tableModel = new DefaultTableModel(null, columnNames) {
             // Needed because we add button elements in the table
             @Override
