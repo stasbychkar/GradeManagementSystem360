@@ -10,6 +10,14 @@ import statsmodels.formula.api as smf
 import argparse
 from pathlib import Path
 
+#Returns statistics for required criteria
+def ReturnStats(criteria):
+    gradeDF[criteria].dropna()
+    mean = gradeDF.mean()
+    median = gradeDF.median()
+    dev = gradeDF.std()
+    print(f"Mean: {mean}, Median: {median}, Std Dev: {dev}")
+
 
 matplotlib.rcParams.update({'font.size': 18})
 #Generates a histogram based on the criteria given
@@ -59,4 +67,3 @@ p_GH.add_argument("criteria", type=str)
 args = parser.parse_args()
 if args.cmd == "GenerateHist":
     GenerateHist(args.criteria)
-
