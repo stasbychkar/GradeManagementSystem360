@@ -1,15 +1,39 @@
+package program;
+
 import com.opencsv.*;
-import java.io.*;
-import java.lang.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Link {
-    private String file_name = "/test.csv";
-    private List<Student> students = new ArrayList();
+    private String file_name = "Grades.csv";
+    public List<Student> students = new ArrayList();
 
     // TODO: use ProcessBuilder to call python code
     public void generateChart() {
         // use processbuilder to call python code to generate charts
+        try {
+            // Path to .exe and directory
+            //String exePath = "charts.exe";
+            //ProcessBuilder pb = new ProcessBuilder(exePath, "GenerateHist", "GPA");
+            ProcessBuilder pb = new ProcessBuilder("./charts", "GenerateHist", "GPA");
+            // Set working directory if the .exe and .csv are together
+
+            pb.directory(new File(System.getProperty("user.dir")));
+            //System.out.println(pb.directory());
+            // start the python
+            Process process = pb.start();
+
+            process.waitFor();
+
+            //System.out.println("Python finished.");
+
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Student> getStudents() { return students; }
@@ -27,14 +51,16 @@ public class Link {
                 writer.writeNext(temp);
 
             }
-//            String[] temp = {"4", "Lyra", "3.9"};
-//            writer.writeNext(temp);
             writer.close();
         }
         catch (Exception e) {
-            System.out.println("Something went wrong in updateFile()");
+            //System.out.println("Something went wrong in updateFile()");
             e.printStackTrace();
         }
+    }
+
+    public void readFile() {
+        readFile(file_name);
     }
 
     public void readFile(String fileName) {
@@ -56,22 +82,26 @@ public class Link {
             file_name = fileName;
         }
         catch (Exception e) {
-            System.out.println("error in readFile()");
+            //System.out.println("error in readFile()");
             e.printStackTrace();
         }
 
     }
     //
 
-    public void addStudent(int id, String name, String GPA) {
-        Student temp = new Student(id, name, GPA);
-        if(!students.contains(temp)) {
-            students.add(temp);
-        }
-        else {
-            // replace with a JOptionPane or something
-            System.out.println("Student already exists.");
-        }
+    public void addStudent(String id, String name, String GPA) {
+        boolean added = false;
+        int int_id = Integer.parseInt(id);
+        Student temp = new Student(int_id, name, GPA);
+        students.add(temp);
+//        if(!students.contains(temp)) {
+//            students.add(temp);
+//            //System.out.println("Student added");
+//        }
+//        else {
+//            // replace with a JOptionPane or something
+//            //System.out.println("Student already exists.");
+//        }
         updateFile();
     }
 
@@ -80,13 +110,13 @@ public class Link {
         for(int i = 0; i < students.size(); i++) {
             if(students.get(i).getId() == Integer.parseInt(id)) {
                 students.remove(i);
-                System.out.println("Student with ID: " + id + " deleted.");
+                //    System.out.println("Student with ID: " + id + " deleted.");
                 found = true;
                 break;
             }
         }
         if(!found) {
-            System.out.println("Student with ID: " + id + " not found and thus not deleted.");
+            // System.out.println("Student with ID: " + id + " not found and thus not deleted.");
         } else {
             updateFile();
         }
@@ -98,7 +128,7 @@ public class Link {
     }
 }
 
-class Student { String name; String GPA; int id;
+class Student { String name; String GPA; int id; String edit; String delete;
 
     public Student() { this(0,"",""); }
 
@@ -106,6 +136,12 @@ class Student { String name; String GPA; int id;
         this.id = id;
         this.name = name;
         this.GPA = GPA;
+    }
+
+    public Student(int id, String name, String GPA, String edit, String delete) {
+        this(id,name,GPA);
+        this.edit = edit;
+        this.delete = delete;
     }
 
     public String getName() { return name; }
@@ -117,4 +153,3 @@ class Student { String name; String GPA; int id;
     @Override
     public String toString() { return id + ", " + name + ", " + GPA; }
 }
-

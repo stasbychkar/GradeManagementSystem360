@@ -1,5 +1,5 @@
+package program;
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import java.awt.*;
@@ -10,6 +10,7 @@ public class MainFrame extends JFrame {
 
     JTable studentTable;
     DefaultTableModel tableModel;
+    static Link link;
 
     public MainFrame() {
         // Set the MainFrame
@@ -26,8 +27,9 @@ public class MainFrame extends JFrame {
 
 
         addStudentButton.addActionListener(e -> addNewStudent());
-        
+
         generateChartButton.addActionListener(e -> {
+            link.generateChart();
             // TODO: Chart logic
         });
         viewStatsButton.addActionListener(e -> {
@@ -62,8 +64,10 @@ public class MainFrame extends JFrame {
         add(scrollPane, BorderLayout.CENTER);
 
         // Add test dummy data
-        tableModel.addRow(new Object[]{"1001", "Alice Johnson", "3.8", "Edit", "Delete"});
-        tableModel.addRow(new Object[]{"1002", "Bob Smith", "3.5", "Edit", "Delete"});
+        for(program.Student student : link.students )
+        {
+            tableModel.addRow(new Object[]{student.getId(), student.getName(), student.getGPA(), "Edit", "Delete"});
+        }
     }
 
     // Opens the Add New Student dialog
@@ -154,9 +158,10 @@ public class MainFrame extends JFrame {
                     return;
                 }
             }
+            link.addStudent(idText,name,gpaText);
 
             // Add row and sort table
-            tableModel.addRow(new Object[]{String.valueOf(id), name, String.format("%.2f", gpa), "Edit", "Delete"});
+            tableModel.addRow(new Object[]{String.valueOf(id), name, String.format("%.1f", gpa), "Edit", "Delete"});
             sortTableByID();
             dialog.dispose();
         });
@@ -203,7 +208,10 @@ public class MainFrame extends JFrame {
 
     // Start the program
     public static void main(String[] args) {
+        link = new Link();
+        link.readFile();
         SwingUtilities.invokeLater(() -> new MainFrame().setVisible(true));
+        // link.generateChart();
     }
 }
 
@@ -250,6 +258,9 @@ class ButtonEditor extends DefaultCellEditor {
             if (label.equals("Edit")) {
                 // TODO
             } else if (label.equals("Delete")) {
+                Object idt = ((DefaultTableModel) frame.studentTable.getModel()).getValueAt(row,0);
+                String id = String.valueOf(idt);
+                MainFrame.link.deleteStudent(id);
                 ((DefaultTableModel) frame.studentTable.getModel()).removeRow(row);
             }
         }
