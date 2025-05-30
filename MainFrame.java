@@ -257,10 +257,12 @@ class ButtonEditor extends DefaultCellEditor {
             if (label.equals("Edit")) {
                 // TODO
             } else if (label.equals("Delete")) {
-                Object idt = ((DefaultTableModel) frame.studentTable.getModel()).getValueAt(row,0);
+                Object idt = ((DefaultTableModel) frame.studentTable.getModel()).getValueAt(row, 0);
                 String id = String.valueOf(idt);
-                MainFrame.link.deleteStudent(id);
-                ((DefaultTableModel) frame.studentTable.getModel()).removeRow(row);
+                SwingUtilities.invokeLater(() -> {
+                    MainFrame.link.deleteStudent(id);
+                    ((DefaultTableModel) frame.studentTable.getModel()).removeRow(row);
+                });
             }
         }
         clicked = false;
