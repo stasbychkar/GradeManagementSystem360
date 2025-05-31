@@ -31,20 +31,24 @@ public class EditButtonEditor extends DefaultCellEditor {
     }
 
     public Object getCellEditorValue() {
-        // Get current name and GPA from the table
-        String name = table.getValueAt(row, 0).toString();
-        String gpa = table.getValueAt(row, 1).toString();
+       // Get current values from the table 
+    String id = table.getValueAt(row, 0).toString();
+    String name = table.getValueAt(row, 1).toString();
+    String gpa = table.getValueAt(row, 2).toString();
 
-        // Open the edit dialog
-        JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(table);
-        EditStudentDialog dialog = new EditStudentDialog(parent, name, gpa);
-        dialog.setVisible(true);
+    // Open the edit dialog
+    JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(table);
+    EditStudentDialog dialog = new EditStudentDialog(parent, name, gpa);
+    dialog.setVisible(true);
 
-        // If user clicked Save, update the table
-        if (dialog.isSaved()) {
-            table.setValueAt(dialog.getStudentName(), row, 0);
-            table.setValueAt(dialog.getStudentGpa(), row, 1);
-        }
-        return null;
+    // If user clicked Save, update the table and data model
+    if (dialog.isSaved()) {
+        table.setValueAt(dialog.getStudentName(), row, 1);
+        table.setValueAt(dialog.getStudentGpa(), row, 2);
+
+        // Update your data model if you want changes to persist
+        MainFrame.link.editStudent(id, dialog.getStudentName(), dialog.getStudentGpa());
     }
+    return null;
+ }
 }
