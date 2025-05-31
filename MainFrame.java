@@ -54,7 +54,7 @@ public class MainFrame extends JFrame {
         // Custom button renderers and editors for two last columns
         studentTable = new JTable(tableModel);
         studentTable.getColumn("Edit").setCellRenderer(new ButtonRenderer());
-        studentTable.getColumn("Edit").setCellEditor(new ButtonEditor(new JCheckBox(), "Edit", this));
+        studentTable.getColumn("Edit").setCellEditor(new EditButtonEditor(new JCheckBox(), studentTable));
         studentTable.getColumn("Delete").setCellRenderer(new ButtonRenderer());
         studentTable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), "Delete", this));
 
