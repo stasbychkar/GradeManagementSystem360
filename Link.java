@@ -13,24 +13,19 @@ public class Link {
     private String file_name = "Grades.csv";
     public List<Student> students = new ArrayList();
 
-    // TODO: use ProcessBuilder to call python code
     public void generateChart() {
         // use processbuilder to call python code to generate charts
         try {
-            // Path to .exe and directory
-            //String exePath = "charts.exe";
-            //ProcessBuilder pb = new ProcessBuilder(exePath, "GenerateHist", "GPA");
-            ProcessBuilder pb = new ProcessBuilder("./charts", "GenerateHist", "GPA");
-            // Set working directory if the .exe and .csv are together
+            ProcessBuilder pb = new ProcessBuilder("charts.exe", "GenerateHist", "GPA");
 
             pb.directory(new File(System.getProperty("user.dir")));
-            //System.out.println(pb.directory());
+            System.out.println(pb.directory());
             // start the python
             Process process = pb.start();
 
             process.waitFor();
 
-            //System.out.println("Python finished.");
+            System.out.println("Python finished.");
 
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
