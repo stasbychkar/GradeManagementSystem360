@@ -122,9 +122,7 @@ public class Link {
     public void printStudents() {
         for(Student student : students) { System.out.println(student); }
     }
-}
-
- // edit student information
+    // edit student information
     public void editStudent(String id, String name, String gpa) {
         for (Student student : students) {
             if (student.getId() == Integer.parseInt(id)) {
@@ -135,6 +133,9 @@ public class Link {
             }
         }
     }
+}
+
+ 
 
 class Student { String name; String GPA; int id; String edit; String delete;
 
