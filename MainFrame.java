@@ -33,8 +33,59 @@ public class MainFrame extends JFrame {
             link.generateChart();
             // TODO: Chart logic
         });
+        
         viewStatsButton.addActionListener(e -> {
-            // TODO: Stats logic
+            int rowCount = tableModel.getRowCount();
+            if (rowCount == 0) {
+                JOptionPane.showMessageDialog(this, "No students to analyze.", "Statistics", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            List<Double> gpas = new ArrayList<>();
+            for (int i = 0; i < rowCount; i++) {
+                try {
+                    double gpa = Double.parseDouble(tableModel.getValueAt(i, 2).toString());
+                    gpas.add(gpa);
+                } catch (NumberFormatException ex) {
+                // Skip invalid values
+                }
+
+            }
+
+            if (gpas.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No valid GPA data found.", "Statistics", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            // Mean
+            double sum = 0;
+            for (double gpa : gpas) {
+                sum += gpa;
+            }
+            double mean = sum / gpas.size();
+
+            // Median
+            gpas.sort(Double::compareTo);
+            double median;
+            int mid = gpas.size() / 2;
+            if (gpas.size() % 2 == 0) {
+                median = (gpas.get(mid - 1) + gpas.get(mid)) / 2.0;
+            } else {
+                median = gpas.get(mid);
+            }
+
+            // Standard Deviation
+            double varianceSum = 0;
+            for (double gpa : gpas) {
+                varianceSum += Math.pow(gpa - mean, 2);
+            }
+            double stdDev = Math.sqrt(varianceSum / gpas.size());
+
+            // Show result
+            String stats = String.format("Number of Students: %d\nMean GPA: %.2f\nMedian GPA: %.2f\nStd. Deviation: %.2f",
+            gpas.size(), mean, median, stdDev);
+
+            JOptionPane.showMessageDialog(this, stats, "Student GPA Statistics", JOptionPane.INFORMATION_MESSAGE);
         });
 
         // Add buttons to panel and panel to frame
