@@ -11,6 +11,13 @@ import argparse
 from pathlib import Path
 import sys
 
+#Returns statistics for required criteria
+def ReturnStats(criteria):
+    gradeDF[criteria].dropna()
+    mean = gradeDF.mean()
+    median = gradeDF.median()
+    dev = gradeDF.std()
+    print(f"Mean: {mean}, Median: {median}, Std Dev: {dev}")
 
 matplotlib.rcParams.update({'font.size': 18})
 #Generates a histogram based on the criteria given
