@@ -44,8 +44,13 @@ public class EditButtonEditor extends DefaultCellEditor {
     // If user clicked Save, update the table and data model
     if (dialog.isSaved()) {
         table.setValueAt(dialog.getStudentName(), row, 1);
-        table.setValueAt(dialog.getStudentGpa(), row, 2);
-
+         try {
+                double gpaVal = Double.parseDouble(dialog.getStudentGpa());
+                table.setValueAt(String.format("%.2f", gpaVal), row, 2);
+            } catch (NumberFormatException e) {
+                // If invalid, just put the raw string (or show error)
+                table.setValueAt(dialog.getStudentGpa(), row, 2);
+            }
         // Update your data model if you want changes to persist
         MainFrame.link.editStudent(id, dialog.getStudentName(), dialog.getStudentGpa());
     }
