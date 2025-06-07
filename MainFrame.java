@@ -326,12 +326,23 @@ class ButtonEditor extends DefaultCellEditor {
             if (label.equals("Edit")) {
                 // TODO
             } else if (label.equals("Delete")) {
-                Object idt = ((DefaultTableModel) frame.studentTable.getModel()).getValueAt(row, 0);
+                Object idt = frame.studentTable.getValueAt(row, 0);
                 String id = String.valueOf(idt);
-                SwingUtilities.invokeLater(() -> {
+                String name = frame.studentTable.getValueAt(row, 1).toString();
+
+                int choice = JOptionPane.showConfirmDialog(
+                    frame,
+                    "Are you sure you want to delete student \"" + name + "\" (ID: " + id + ")?",
+                    "Confirm Deletion",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE
+                );
+                if (choice == JOptionPane.YES_OPTION) {
+                    SwingUtilities.invokeLater(() -> {
                     MainFrame.link.deleteStudent(id);
                     ((DefaultTableModel) frame.studentTable.getModel()).removeRow(row);
-                });
+                    });
+                }
             }
         }
         clicked = false;
