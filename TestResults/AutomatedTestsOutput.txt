@@ -1,0 +1,38 @@
+💚 Thanks for using JUnit! Support its development at https://junit.org/sponsoring
+
+╷
+├─ JUnit Jupiter ✔
+│  ├─ MainFrameTest ✔
+│  │  ├─ testTableModelExists() ✔
+│  │  ├─ testInvalidGPAFormat() ✔
+│  │  ├─ testMainFrameCreated() ✔
+│  │  ├─ testValidInput() ✔
+│  │  ├─ testNegativeID() ✔
+│  │  ├─ testEdgeCaseGPAFour() ✔
+│  │  ├─ testEdgeCaseGPAZero() ✔
+│  │  ├─ testEmptyFields() ✔
+│  │  ├─ testStudentTableExists() ✔
+│  │  ├─ testInvalidIDText() ✔
+│  │  ├─ testWindowSize() ✔
+│  │  ├─ testOutOfRangeGPA() ✔
+│  │  └─ testTitleIsSet() ✔
+│  └─ LinkTest ✔
+│     ├─ testInitialStudentListIsEmpty() ✔
+│     ├─ testLinkCreation() ✔
+│     └─ testGenerateChartRuns() ✔
+├─ JUnit Vintage ✔
+└─ JUnit Platform Suite ✔
+
+Test run finished after 345 ms
+[         5 containers found      ]
+[         0 containers skipped    ]
+[         5 containers started    ]
+[         0 containers aborted    ]
+[         5 containers successful ]
+[         0 containers failed     ]
+[        16 tests found           ]
+[         0 tests skipped         ]
+[        16 tests started         ]
+[         0 tests aborted         ]
+[        16 tests successful      ]
+[         0 tests failed          ]

@@ -160,48 +160,17 @@ public class MainFrame extends JFrame {
             String idText = idField.getText().trim();
             String name = nameField.getText().trim();
             String gpaText = gpaField.getText().trim();
-
-            // Empty field check
-            if (idText.isEmpty() || name.isEmpty() || gpaText.isEmpty()) {
-                JOptionPane.showMessageDialog(dialog, "All fields are required.", "Error", JOptionPane.ERROR_MESSAGE);
+        
+            ValidationResult validation = validateStudentFields(idText, name, gpaText);
+        
+            if (validation.error != null) {
+                JOptionPane.showMessageDialog(dialog, validation.error, "Invalid Input", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
-            boolean valid = true;
-            StringBuilder errorMessage = new StringBuilder();
-            int id = -1;
-            double gpa = -1;
-
-            // ID validation
-            try {
-                id = Integer.parseInt(idText);
-                if (id <= 0) {
-                    valid = false;
-                    errorMessage.append("• ID must be a positive integer.\n");
-                }
-            } catch (NumberFormatException ex) {
-                valid = false;
-                errorMessage.append("• ID must be a valid number.\n");
-            }
-
-            // GPA validation
-            try {
-                gpa = Double.parseDouble(gpaText);
-                if (gpa < 0.0 || gpa > 4.0) {
-                    valid = false;
-                    errorMessage.append("• GPA must be between 0.0 and 4.0.\n");
-                }
-            } catch (NumberFormatException ex) {
-                valid = false;
-                errorMessage.append("• GPA must be a valid decimal number.\n");
-            }
-
-            // Show combined errors if validation fails
-            if (!valid) {
-                JOptionPane.showMessageDialog(dialog, errorMessage.toString(), "Invalid Input", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
+        
+            int id = validation.id;
+            double gpa = validation.gpa;
+        
             // Duplicate ID check
             for (int i = 0; i < tableModel.getRowCount(); i++) {
                 String existingId = tableModel.getValueAt(i, 0).toString();
@@ -210,13 +179,13 @@ public class MainFrame extends JFrame {
                     return;
                 }
             }
-            link.addStudent(idText,name,gpaText);
-
-            // Add row and sort table
+        
+            link.addStudent(idText, name, gpaText);
+        
             tableModel.addRow(new Object[]{String.valueOf(id), name, String.format("%.1f", gpa), "Edit", "Delete"});
             sortTableByID();
             dialog.dispose();
-        });
+        });        
 
         // Cancel closes dialog
         cancelButton.addActionListener(e -> dialog.dispose());
@@ -256,6 +225,53 @@ public class MainFrame extends JFrame {
         for (Object[] row : rows) {
             tableModel.addRow(row);
         }
+    }
+
+    // Helper method to validate input and return validation result
+    public static ValidationResult validateStudentFields(String idText, String name, String gpaText) {
+    ValidationResult result = new ValidationResult();
+    StringBuilder errorMessage = new StringBuilder();
+    boolean valid = true;
+
+    if (idText.isEmpty() || name.isEmpty() || gpaText.isEmpty()) {
+        result.error = "All fields are required.";
+        return result;
+    }
+
+    try {
+        result.id = Integer.parseInt(idText);
+        if (result.id <= 0) {
+            valid = false;
+            errorMessage.append("• ID must be a positive integer.\n");
+        }
+    } catch (NumberFormatException ex) {
+        valid = false;
+        errorMessage.append("• ID must be a valid number.\n");
+    }
+
+    try {
+        result.gpa = Double.parseDouble(gpaText);
+        if (result.gpa < 0.0 || result.gpa > 4.0) {
+            valid = false;
+            errorMessage.append("• GPA must be between 0.0 and 4.0.\n");
+        }
+    } catch (NumberFormatException ex) {
+        valid = false;
+        errorMessage.append("• GPA must be a valid decimal number.\n");
+    }
+
+    if (!valid) {
+        result.error = errorMessage.toString();
+    }
+
+    return result;
+}
+
+    // Helper class to return multiple values
+    public static class ValidationResult {
+        int id;
+        double gpa;
+        String error;
     }
 
     // Start the program

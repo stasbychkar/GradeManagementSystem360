@@ -1,0 +1,8 @@
+Date: June 5, 2025
+
+Reported Feedback:
+  - Mac users couldn’t run the program without extra instructions
+  - GPA field allows invalid values when editing (e.g., too many decimal places or non-numeric input)
+  - ID range isn't enforced — users could enter very large or negative values
+  - No input validation when editing students through CSV
+  - Mac users couldn’t run the program without extra instructions

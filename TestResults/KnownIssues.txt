@@ -1,0 +1,4 @@
+Known Issues
+
+1. "Edit" button text disappears after clicking
+2. "Generate Chart" have ~30 second delay

@@ -1,0 +1,27 @@
+-----------------------------------------
+Test Summary - Grade Management System
+-----------------------------------------
+
+----------------------------
+1. Automated Unit Testing
+----------------------------
+Type: JUnit 16 Automated unit tests (student input validation, GUI object instantiation)
+Outcome: All tests passed
+Last Run: June 6, 2025
+
+----------------------------
+2. Manual Functional Testing
+----------------------------
+Type: Manual GUI tests
+Outcome: 
+  - "Edit" button text disappears after clicking
+  - "Generate Chart" have ~30 second delay
+Last Run: June 6, 2025
+
+----------------------------
+2. User Testing
+----------------------------
+Type: Feedback during Bug Bash in class
+Outcome:
+  - Mac users unable to run the app because of unclear instructions
+  - Input fields accepting unintended values (e.g., numeric names, invalid GPA)

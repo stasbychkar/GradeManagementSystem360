@@ -1,0 +1,10 @@
+List of manual tests performed:
+
+- App window opens
+- "Add New Student" dialog appears and accepts valid input
+- Error messages shown for invalid ID/GPA
+- Duplicate ID warning works
+- "Generate Chart" launches external script without error
+- Students added are correctly displayed
+- CSV file updates to reflect current data
+- Edit and Delete buttons appear in the table
