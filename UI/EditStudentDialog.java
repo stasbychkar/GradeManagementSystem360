@@ -33,6 +33,22 @@ public class EditStudentDialog extends JDialog {
         // Save button action
         saveBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                String gpaText = gpaField.getText().trim();
+                double gpa;
+
+                try {
+                    gpa = Double.parseDouble(gpaText);
+                    if (gpa < 0.0 || gpa > 4.0) {
+                        JOptionPane.showMessageDialog(EditStudentDialog.this,
+                                "GPA must be between 0.0 and 4.0", "Invalid GPA", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(EditStudentDialog.this,
+                            "Please enter a valid decimal GPA (e.g., 3.7)", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 saved = true;
                 setVisible(false);
             }
