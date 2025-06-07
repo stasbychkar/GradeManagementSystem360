@@ -1,32 +1,21 @@
-import os
 import pandas as pd
 import numpy as np
-import scipy
 import matplotlib
-matplotlib.use('MacOSX')
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
 import argparse
 from pathlib import Path
 import sys
 
-#Returns statistics for required criteria
-def ReturnStats(criteria):
-    gradeDF[criteria].dropna()
-    mean = gradeDF.mean()
-    median = gradeDF.median()
-    dev = gradeDF.std()
-    print(f"Mean: {mean}, Median: {median}, Std Dev: {dev}")
-
 matplotlib.rcParams.update({'font.size': 18})
-#Generates a histogram based on the criteria given
+
+# Generates a histogram based on the criteria given
 def GenerateHist(criteria):
-    #Sets Bin Count
-    if(criteria == "GPA"):
+    # Sets bin count
+    if criteria == "GPA":
         binCount = 8
 
-    #TODO: Add more bincount based on different criterias
+    # TODO: Add more bincount based on different criteria
 
     # Plot and grab the patches
     counts, bins, patches = plt.hist(
@@ -35,40 +24,42 @@ def GenerateHist(criteria):
         edgecolor='black',
         label=criteria
     )
-    #Add colors the histogram
+
+    # Add colors to the histogram
     cmap = plt.get_cmap('Blues')
     n = len(patches)
     colors = cmap(np.linspace(0.2, 0.8, n))
     for patch, color in zip(patches, colors):
         patch.set_facecolor(color)
 
-    #Set table names and show
-    plt.gca().set(title = criteria + " for all students", ylabel = "Count", xlabel = criteria)
+    # Set table labels and show plot
+    plt.gca().set(title=f"{criteria} for all students", ylabel="Count", xlabel=criteria)
     plt.show()
 
 
-#Opens csv file
+# Set up CSV file path
 if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
     bundle_dir = Path(sys.executable).parent
 else:
     bundle_dir = Path(__file__).parent
 
 csv_path = bundle_dir / "Grades.csv"
+
+# Load DataFrame
 gradeDF = pd.read_csv(csv_path)
-#Excludes students without student id
-gradeDF = gradeDF[pd.notna(gradeDF['ID'])]
+gradeDF = gradeDF[pd.notna(gradeDF['ID'])]  # Exclude students without ID
 
-#Parses from Command line
-parser = argparse.ArgumentParser()
-subparsers = parser.add_subparsers(dest="cmd", required=True)
+# Only run CLI if file is executed directly
+if __name__ == "__main__":
+    # Set up CLI parser
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="cmd", required=True)
 
+    # GenerateHist sub-command
+    p_GH = subparsers.add_parser("GenerateHist", help="Run GenerateHist")
+    p_GH.add_argument("criteria", type=str)
 
-#TODO: Add more sub commands as more functions are developed
-
-# GenerateHist sub-command
-p_GH = subparsers.add_parser("GenerateHist", help="Run GenerateHist")
-p_GH.add_argument("criteria", type=str)
-args = parser.parse_args()
-if args.cmd == "GenerateHist":
-    GenerateHist(args.criteria)
-
+    # Parse and execute
+    args = parser.parse_args()
+    if args.cmd == "GenerateHist":
+        GenerateHist(args.criteria)
