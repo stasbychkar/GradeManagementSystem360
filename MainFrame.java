@@ -182,7 +182,7 @@ public class MainFrame extends JFrame {
         
             link.addStudent(idText, name, gpaText);
         
-            tableModel.addRow(new Object[]{String.valueOf(id), name, String.format("%.1f", gpa), "Edit", "Delete"});
+           tableModel.addRow(new Object[]{String.valueOf(id), name, String.format("%.2f", gpa), "Edit", "Delete"});
             sortTableByID();
             dialog.dispose();
         });        
