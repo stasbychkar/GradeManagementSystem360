@@ -8,3 +8,4 @@ List of manual tests performed:
 - Students added are correctly displayed
 - CSV file updates to reflect current data
 - Edit and Delete buttons appear in the table
+- "Generate Chart" generates an accurate chart

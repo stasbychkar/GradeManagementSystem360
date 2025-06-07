@@ -9,6 +9,10 @@ Type: JUnit 16 Automated unit tests (student input validation, GUI object instan
 Outcome: All tests passed
 Last Run: June 6, 2025
 
+Type: Python UnitTest 2 tests ran (dataframe validation)
+Outcome: 2 Passed in .181s
+Last Run: June 7, 2025
+
 ----------------------------
 2. Manual Functional Testing
 ----------------------------
@@ -18,6 +22,11 @@ Outcome:
   - "Generate Chart" have ~30 second delay
 Last Run: June 6, 2025
 
+Type: Manual chart visual inspection
+Outcome:
+  - Histogram is accurate before modifications to csv 
+  - Histogram is accurate after modifcations to csv
+Last Run: June 7, 2025
 ----------------------------
 2. User Testing
 ----------------------------
