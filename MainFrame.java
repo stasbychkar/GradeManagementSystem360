@@ -448,6 +448,6 @@ class EditButtonEditor extends DefaultCellEditor {
         // Update your data model if you want changes to persist
         MainFrame.link.editStudent(id, dialog.getStudentName(), dialog.getStudentGpa());
     }
-    return null;
+    return "Edit";
  }
 }
