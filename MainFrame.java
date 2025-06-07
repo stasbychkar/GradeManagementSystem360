@@ -82,7 +82,7 @@ public class MainFrame extends JFrame {
             double stdDev = Math.sqrt(varianceSum / gpas.size());
 
             // Show result
-            String stats = String.format("Number of Students: %d\nMean GPA: %.2f\nMedian GPA: %.2f\nStd. Deviation: %.2f",
+            String stats = String.format("Number of Students: %d\nMean GPA: %.1f\nMedian GPA: %.1f\nStd. Deviation: %.1f",
             gpas.size(), mean, median, stdDev);
 
             JOptionPane.showMessageDialog(this, stats, "Student GPA Statistics", JOptionPane.INFORMATION_MESSAGE);
@@ -182,7 +182,7 @@ public class MainFrame extends JFrame {
         
             link.addStudent(idText, name, gpaText);
         
-           tableModel.addRow(new Object[]{String.valueOf(id), name, String.format("%.2f", gpa), "Edit", "Delete"});
+           tableModel.addRow(new Object[]{String.valueOf(id), name, String.format("%.1f", gpa), "Edit", "Delete"});
             sortTableByID();
             dialog.dispose();
         });        
@@ -246,7 +246,7 @@ public class MainFrame extends JFrame {
         }
     } catch (NumberFormatException ex) {
         valid = false;
-        errorMessage.append("• ID must be a valid number.\n");
+        errorMessage.append("• ID must be a valid number between 1 and 2147483647.\n");
     }
 
     try {
