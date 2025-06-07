@@ -237,6 +237,9 @@ public class MainFrame extends JFrame {
         result.error = "All fields are required.";
         return result;
     }
+     if (!name.matches("[a-zA-Z\\s'-]+")) {
+          result.error = "• Name can only contain letters, spaces, hyphens, or apostrophes.";
+     }
 
     try {
         result.id = Integer.parseInt(idText);
