@@ -7,7 +7,7 @@ Test Summary - Grade Management System
 ----------------------------
 Type: JUnit 16 Automated unit tests (student input validation, GUI object instantiation)
 Outcome: All tests passed
-Last Run: June 6, 2025
+Last Run: June 7, 2025
 
 Type: Python UnitTest 2 tests ran (dataframe validation)
 Outcome: 2 Passed in .181s
@@ -20,15 +20,16 @@ Type: Manual GUI tests
 Outcome: 
   - "Edit" button text disappears after clicking
   - "Generate Chart" have ~30 second delay
-Last Run: June 6, 2025
+Last Run: June 7, 2025
 
 Type: Manual chart visual inspection
 Outcome:
   - Histogram is accurate before modifications to csv 
   - Histogram is accurate after modifcations to csv
 Last Run: June 7, 2025
+
 ----------------------------
-2. User Testing
+3. User Testing
 ----------------------------
 Type: Feedback during Bug Bash in class
 Outcome:
