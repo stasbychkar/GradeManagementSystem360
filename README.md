@@ -1,9 +1,12 @@
 # Grade Management System 
+
 #### By: Stan Bychkar, Sohail Chutani, Ilham Mohamed, Justin Rabung, and Alan Vu
 
 ## Brief Description 
-This is the final version of our project for CSS 360 - Software Engineering. 
+This is the final version of our project 3 for CSS 360 - Software Engineering. This project involved developing a program from start to finish following the software development life cycle.  
+
 ## Instructions for running the program
+
 #### Prerequisites 
 Java JDK 11 or higher is installed
 *Mac version:* MacOS 14.7.5+ The program should run on older versions of macOS given that the correct Java version is installed however the Generate Charts function may not work
