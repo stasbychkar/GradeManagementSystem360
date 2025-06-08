@@ -107,7 +107,7 @@ public class MainFrame extends JFrame {
         // Custom button renderers and editors for two last columns
         studentTable = new JTable(tableModel);
         studentTable.getColumn("Edit").setCellRenderer(new ButtonRenderer());
-        studentTable.getColumn("Edit").setCellEditor(new EditButtonEditor(new JCheckBox(), studentTable));
+        studentTable.getColumn("Edit").setCellEditor(new EditButtonEditor(new JCheckBox(), studentTable, link));
         studentTable.getColumn("Delete").setCellRenderer(new ButtonRenderer());
         studentTable.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox(), "Delete", this));
 
@@ -422,14 +422,14 @@ class EditButtonEditor extends DefaultCellEditor {
     private JButton button;
     private JTable table;
     private int row;
+    private Link link;
 
     // Make the Edit button
-    public EditButtonEditor(JCheckBox checkBox, JTable table) {
+    public EditButtonEditor(JCheckBox checkBox, JTable table, Link link) {
         super(checkBox);
         this.table = table;
+        this.link = link;
         button = new JButton("Edit");
-        
-        // Stop editing when button is clicked
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 fireEditingStopped();
@@ -437,31 +437,36 @@ class EditButtonEditor extends DefaultCellEditor {
         });
     }
 
-    // Show the button in the cell
     public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
         this.row = row;
+        button.setText("Edit");
         return button;
     }
 
     public Object getCellEditorValue() {
-       // Get current values from the table 
-    String id = table.getValueAt(row, 0).toString();
-    String name = table.getValueAt(row, 1).toString();
-    String gpa = table.getValueAt(row, 2).toString();
+        String id = table.getValueAt(row, 0).toString();
+        String name = table.getValueAt(row, 1).toString();
+        String gpa = table.getValueAt(row, 2).toString();
 
-    // Open the edit dialog
-    JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(table);
-    EditStudentDialog dialog = new EditStudentDialog(parent, name, gpa);
-    dialog.setVisible(true);
+        JFrame parent = (JFrame) SwingUtilities.getWindowAncestor(table);
+        EditStudentDialog dialog = new EditStudentDialog(parent, name, gpa);
+        dialog.setVisible(true);
 
-    // If user clicked Save, update the table and data model
-    if (dialog.isSaved()) {
-        table.setValueAt(dialog.getStudentName(), row, 1);
-        table.setValueAt(dialog.getStudentGpa(), row, 2);
-
-        // Update your data model if you want changes to persist
-        MainFrame.link.editStudent(id, dialog.getStudentName(), dialog.getStudentGpa());
+        if (dialog.isSaved()) {
+            table.setValueAt(dialog.getStudentName(), row, 1);
+            // table.setValueAt(dialog.getStudentGpa(), row, 2);
+            try {
+                double gpaVal = Double.parseDouble(dialog.getStudentGpa());
+                table.setValueAt(String.format("%.2f", gpaVal), row, 2);
+            } catch (NumberFormatException e) {
+                // If invalid, just put the raw string (or show error)
+                table.setValueAt(dialog.getStudentGpa(), row, 2);
+            }
+            link.editStudent(id, dialog.getStudentName(), dialog.getStudentGpa());
+        }
+        System.out.println("Returning: Edit");
+        return "Edit";
     }
-    return "Edit";
- }
 }
+
+
