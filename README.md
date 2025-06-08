@@ -8,7 +8,8 @@ This is our final project for CSS 360 - Software Engineering. This project invol
 ## Instructions for running the program
 
 #### Prerequisites 
-Java JDK 11 or higher is installed
+Java JDK 11 or higher is installed. Download the latest Java JDK [here](https://www.oracle.com/java/technologies/downloads/#jdk24-windows)
+
 *Mac version:* MacOS 14.7.5+ The program should run on older versions of macOS given that the correct Java version is installed however the Generate Charts function may not work
 #### Download: 
 From the main [repository page](https://github.com/stasbychkar/GradeManagementSystem360) click on the ```Releases``` text (right side of the page) and navigate to Release ```v1.0.0```
