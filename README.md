@@ -16,7 +16,7 @@ Java JDK 11 or higher is installed. Download the latest Java JDK [here](https://
 
 *Mac version:* MacOS 14.7.5+ The program should run on older versions of macOS given that the correct Java version is installed however the Generate Charts function may not work
 #### Download: 
-From the main [repository page](https://github.com/stasbychkar/GradeManagementSystem360) click on the ```Releases``` text (right side of the page) and navigate to Release ```v1.0.0```
+From the main [repository page](https://github.com/stasbychkar/GradeManagementSystem360) click on the ```Releases``` text (right side of the page) and navigate to Release titled ```Project 3: Final Submission```
 
 *MacOS:* Download the zip ``` project3_v1.0.0-macOS ```
 
