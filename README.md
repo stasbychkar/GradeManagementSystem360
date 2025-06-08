@@ -3,7 +3,7 @@
 #### By: Stan Bychkar, Sohail Chutani, Ilham Mohamed, Justin Rabung, and Alan Vu
 
 ## Brief Description 
-This is the final version of our project 3 for CSS 360 - Software Engineering. This project involved developing a program from start to finish following the software development life cycle.  
+This is our final project for CSS 360 - Software Engineering. This project involved developing a program from start to finish following the software development life cycle.  
 
 ## Instructions for running the program
 
