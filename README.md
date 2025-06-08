@@ -3,7 +3,11 @@
 #### By: Stan Bychkar, Sohail Chutani, Ilham Mohamed, Justin Rabung, and Alan Vu
 
 ## Brief Description 
-This is our final project for CSS 360 - Software Engineering. This project involved developing a program from start to finish following the software development life cycle.  
+This is our final project for CSS 360 - Software Engineering. This project involved developing a program from start to finish following the software development life cycle. This grade management program allows users to store student grades in a database and get certain aggregated statistics from them. Key features include: 
+* A CSV file acting as the database - saving the data
+* The ability to add, edit, and delete students from the database
+* Generating a histogram of student grades
+* Generating statistics of students (Number of students, mean and median GPA, and standard deviation)
 
 ## Instructions for running the program
 
