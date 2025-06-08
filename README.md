@@ -36,8 +36,11 @@ If that still doesn't work and you get an error message please share the the err
 **Error: LinkageError occurred while loading main class program.MainFrame:** This may be because you are running an older version of Java. This program requires having Java 11 or higher installed
 
 **Nothing happening when clicking Generate Chart?** Try running the python program separately. Go to where the files are stored on your computer with the terminal and enter the following (System-dependent):
+
 MacOS: ```./charts GenerateHist GPA ```
+
 Windows: ``` charts.exe GenerateHist GPA ```
+
 If that still doesn't work and you get an error message please share the the error message output with us.
 
 #### Known Issues:
