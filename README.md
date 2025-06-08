@@ -1,8 +1,8 @@
 # Grade Management System 
+#### By: Stan Bychkar, Sohail Chutani, Ilham Mohamed, Justin Rabung, and Alan Vu
 
 ## Brief Description 
-**TODO:** This tool allow users to input student grade data and automatically generates visual charts, making it easier to analyze and interpret grade trends.
-
+This is the final version of our project for CSS 360 - Software Engineering. 
 ## Instructions for running the program
 #### Prerequisites 
 Java JDK 11 or higher is installed
