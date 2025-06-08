@@ -2,3 +2,4 @@ Known Issues
 
 1. "Generate Chart" have ~30 second delay
 2. The program does not run on Intel Macs
+3. Generate Chart does not work on MacOS 14.6.1 or older
